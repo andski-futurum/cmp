@@ -16,9 +16,50 @@ export default class IntroV2 extends Component {
 
   static defaultProps = {};
 
+	constructor() {
+		super();
+
+		this.state = {
+			isFirstScroll: true,
+			acceptButtonPointer: false,
+			isSecondScrollActive: false
+		};
+
+		this.handleScroll = this.handleScroll.bind(this);
+	}
+
   componentDidMount() {
     this.props.updateCSSPrefs();
+	  window.addEventListener('wheel', this.handleScroll);
   }
+
+	componentWillUnmount() {
+		window.removeEventListener('wheel', this.handleScroll);
+	}
+
+	handleScroll(event) {
+
+		if(this.state.isFirstScroll) {
+			this.setState({
+				isFirstScroll: false,
+				acceptButtonPointer: true});
+
+				setTimeout(function () {
+					this.setState({
+						isSecondScrollActive: true
+					});
+				}.bind(this), 1500);
+		}
+
+		if(this.state.isSecondScrollActive){
+			this.setState({
+				isSecondScrollActive: false,
+				acceptButtonPointer: false,
+				isFirstScroll: true
+			});
+			this.props.onAcceptAll();
+		}
+	}
 
   render(props, state) {
     const {
@@ -30,6 +71,8 @@ export default class IntroV2 extends Component {
       updateCSSPrefs,
       config
     } = props;
+
+	  let btn_class = !this.state.acceptButtonPointer ? style.acceptAll : style.acceptAllPointer;
 
     return (
       <div class={style.intro}>
@@ -57,7 +100,7 @@ export default class IntroV2 extends Component {
               <LocalLabel providedValue={localization && localization.intro ? localization.intro.showPurposes : ''} localizeKey='showPurposes'>Learn more</LocalLabel>
             </Button>
             <Button
-              class={style.acceptAll}
+              class={btn_class}
               onClick={onAcceptAll}
               >
               <LocalLabel providedValue={localization && localization.intro ? localization.intro.acceptAll : ''} localizeKey='acceptAll'>Accept all</LocalLabel>
