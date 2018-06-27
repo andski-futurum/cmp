@@ -225,6 +225,17 @@ export default class Cmp {
 			this.cmpShown = true;
 			this.store[_command](true);
 			callback(true);
+		},
+
+		/**
+		 * Trigger the consent tool to be shown by pressing button or link
+		 */
+
+		showConsentToolFromButton: (_, callback = () => {}) => {
+			const _command = 'toggleFooterConsentToolShowingByButton';
+			this.cmpShown = true;
+			this.store[_command](true);
+			callback(true);
 		}
 	};
 

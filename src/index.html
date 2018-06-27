@@ -42,10 +42,18 @@
 		})(window);
 
 		window.__cmp('renderCmpIfNeeded');
+
+		function showConsentDialog() {
+			window.__cmp('showConsentToolFromButton');
+		}
+
 	</script>
 </head>
 <body>
 	<a href="#">Some Link</a>
 	<div><p>Some Text</p></div>
+	<button onclick="showConsentDialog()">
+		SHOW CONSENT DIALOG
+	</button>
 </body>
 </html>

@@ -66,6 +66,8 @@ export default class Store {
 
 		this.updateVendorList(vendorList);
 		this.updateCustomPurposeList(customPurposeList);
+
+		this.isConsentToolShowingByButton = false;
 	}
 
 	/**
@@ -364,6 +366,15 @@ export default class Store {
 		this.isFooterConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
 		this.isFooterShowing = false;
 		this.isConsentToolShowing = false;
+		this.isConsentToolShowingByButton = false;
+		this.storeUpdate();
+	};
+
+	toggleFooterConsentToolShowingByButton = (isShown) => {
+		this.isFooterConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
+		this.isConsentToolShowingByButton = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowingByButton;
+		this.isFooterShowing = false;
+		this.isConsentToolShowing = false;
 		this.storeUpdate();
 	};
 
@@ -371,6 +382,7 @@ export default class Store {
 		this.isConsentToolShowing = typeof isShown === 'boolean' ? isShown : !this.isConsentToolShowing;
 		this.isFooterShowing = false;
 		this.isFooterConsentToolShowing = false;
+		this.isConsentToolShowingByButton = false;
 		this.storeUpdate();
 	};
 
@@ -378,6 +390,7 @@ export default class Store {
 		this.isFooterShowing = typeof isShown === 'boolean' ? isShown : !this.isFooterShowing;
 		this.isConsentToolShowing = false;
 		this.isFooterConsentToolShowing = false;
+		this.isConsentToolShowingByButton = false;
 		this.storeUpdate();
 	};
 

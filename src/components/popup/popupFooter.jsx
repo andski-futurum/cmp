@@ -43,6 +43,16 @@ export default class PopupFooter extends Component {
 		this.props.updateCSSPrefs();
 	}
 
+	componentWillUpdate() {
+		const { store } = this.props;
+		if(store.isConsentToolShowingByButton) {
+			this.setState({
+				selectedPanelIndex: SECTION_DETAILS,
+				isActive: true
+			});
+		}
+	}
+
 	render(props, state) {
 		const { store, localization, config, updateCSSPrefs } = props;
 		const { selectedPanelIndex, isActive } = state;
